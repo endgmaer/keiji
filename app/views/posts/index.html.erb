@@ -1,0 +1,46 @@
+検索
+<br>
+<%= search_form_for(@q, url: posts_path) do |f| %>
+  <%= f.label :name_cont, 'name' %>
+  <%= f.search_field :name_cont %>
+  <br>
+  <%= f.label :content_cont, 'content' %>
+  <%= f.search_field :content_cont %>
+  <br>
+  <%= f.submit %>
+<% end %>
+<br>
+
+投稿する
+<br>
+<%= form_for @post do |f| %>
+  name: <%= f.text_field :name %>
+  <br>
+  pass: <%= f.text_field :password %>
+  <br>
+  content: <%= f.text_field :content %>
+  <br>
+  <%= f.submit %>
+<% end %>
+<br>
+
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+
+一覧
+<br>
+<% @posts.each do |post| %>
+  id: <%= post.id %>
+  <br>
+  name: <%= post.name %>
+  <br>
+  content: <%= post.content %>
+  <br>
+  <%= post.password %>
+  <%= form_tag post_path(id: post.id), method: :delete do %>
+    <%= text_field_tag :delete_password %>
+    <%= submit_tag '削除' %>
+  <% end %>
+  <br>
+<% end %>
